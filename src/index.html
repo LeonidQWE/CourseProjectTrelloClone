@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Project JS</title>
+  <link rel="stylesheet" href="./scss/app.scss">
+  <script src="./js/app.js" type="module"></script>
+</head>
+<body>
+  <header class="header">
+    <a href="#">
+      <img class="header__logo" src="./img/logo.png" alt="">
+    </a>
+    <span class="header__deta" id="time"></span>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container" id="todosContainer">
+        <!-- Block create new todo -->
+        <div class="todo-list">
+          <div class="todo-list__title" id="todoWrapper">
+
+          </div>
+
+          <div class="todo-list__container" id="todoList">
+
+          </div>
+          <button type="button" class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Add todo</button>
+        </div>
+
+        <!-- Block Todo in progress -->
+        <div class="todo-in-progress">
+          <div class="todo-in-progress__title" id="inProgressWrapper">
+
+          </div>
+
+          <div class="todo-in-progress__container" id="inProgressList">
+
+          </div>
+        </div>
+
+        <!-- Block done todo -->
+        <div class="todo-done">
+          <div class="todo-done__title" id="doneWrapper">
+
+          </div>
+
+          <div class="todo-done__container" id="doneList">
+
+          </div>
+          <button class="btn btn-primary" id="deleteAll">Delete all</button>
+        </div>
+
+        <!-- Modal window -->
+        <div class="modal modal-lg fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5>New Todo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form action="" id="modalForm">
+                  <div class="mb-3">
+                    <span>Title:</span>
+                    <input type="text" class="form-control mt-2" id="inputTitle">
+                  </div>
+                  <div class="mb-3">
+                    <span>Description:</span>
+                    <textarea class="form-control w-100 mt-2" name="" id="inputDescription" cols="30" rows="6"></textarea>
+                  </div>
+                  <input type="color" id="color">
+                  <select class="form-select form-select-sm mb-3" aria-label=".form-select-lg example" id="selectUser">
+                    <option selected>User</option>
+
+                  </select>
+                  <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" id="btnSave">Confirm</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Create Modal Window -->
+        <div class="modal modal-lg fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5>New Todo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form action="" id="createModalForm">
+                  <div class="mb-3">
+                    <span>Title:</span>
+                    <input type="text" class="form-control mt-2" id="createInputTitle">
+                  </div>
+                  <div class="mb-3">
+                    <span>Description:</span>
+                    <textarea class="form-control w-100 mt-2" name="" cols="30" rows="6" id="createDescription"></textarea>
+                  </div>
+                  <input type="color" id="createColor">
+                  <input type="hidden" id="createId">
+                  <input type="hidden" id="createStatus">
+                  <input type="hidden" id="createDate">
+                  <select class="form-select form-select-sm mb-3" aria-label=".form-select-lg example" id="createUser">
+                    <option selected>User</option>
+
+                  </select>
+                  <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Confirm</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,29 @@
+.todo-done {
+  background-color: #fff;
+  border-radius: 10px;
+
+  flex: 0 0 30%;
+
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    background-color: #3b31d9;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__name, &__quantity {
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  &__container {
+    flex: 1 1 auto;
+  }
+}
