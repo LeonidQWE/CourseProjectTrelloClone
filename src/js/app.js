@@ -1,9 +1,9 @@
 import { Modal } from 'bootstrap'
-import { Todo } from './constructor.js'
+import { render, renderCounters, getData, setData, getUsers, printUsers } from './helpers.js'
+import { Todo } from './class.js'
 
 // Variables
 let todos = getData()
-const url = 'https://jsonplaceholder.typicode.com/users'
 const modalFormElement = document.querySelector('#modalForm')
 const inputTitleElement = document.querySelector('#inputTitle')
 const inputDescriptionElement = document.querySelector('#inputDescription')
@@ -134,7 +134,6 @@ function handleClickEdit (event) {
   if (role == 'edit') {
     todos.forEach((item) => {
       if (item.id == id) {
-        console.log(item)
         createInputTitleElement.value = item.title
         createDescriptionelement.value = item.description
         createColorElement.value = item.bgcolor
@@ -173,135 +172,9 @@ setInterval (() => {
   timeElemetn.innerHTML = timer
 }, 100)
 
-// render
-function render (data, containerTodo, containerInProgress, containerDone) {
-  let newTemplates = ''
-  let inProgressTemplates = ''
-  let doneTemplates = ''
-
-  data.forEach((item) => {
-    const template = buildTemplateTodo (item)
-    if (item.status == 'newTodo') {
-      newTemplates += template
-    }
-
-    if (item.status == 'inProgress') {
-      inProgressTemplates += template
-    }
-
-    if (item.status == 'done') {
-      doneTemplates += template
-    }
-  })
-
-  containerTodo.innerHTML = newTemplates
-  containerInProgress.innerHTML = inProgressTemplates
-  containerDone.innerHTML = doneTemplates
-}
-
-// Render Counters
-function renderCounters (collection, wrapperTodo, wrapperInProgress, wrapperDone) {
-  let create = 0
-  let progress = 0
-  let made = 0
-
-  collection.forEach((item) => {
-    if (item.status == 'newTodo') {
-      create++
-    }
-
-    if (item.status == 'inProgress') {
-      progress++
-    }
-
-    if (item.status == 'done') {
-      made++
-    }
-  })
-
-  const templateTodo = buildCountersTemplateTodo(create)
-  const templateInProgress = buildCountersTemplateInProgress(progress)
-  const templateDone = buildCountersTemplateDone(made)
-
-  wrapperTodo.innerHTML = templateTodo
-  wrapperInProgress.innerHTML = templateInProgress
-  wrapperDone.innerHTML = templateDone
-}
-
-// Draw card
-function buildTemplateTodo (todo) {
-  const date = new Date(todo.date).toLocaleString()
-  const statusNewTodo = todo.status == 'newTodo' ? 'selected' : ''
-  const statusInProgress = todo.status == 'inProgress' ? 'selected' : ''
-  const statusDone = todo.status == 'done' ? 'selected' : ''
-  return `
-    <div class="todo" id="${todo.id}" style="background-color: ${todo.bgcolor};">
-      <div class="todo__control">
-        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#createModal" data-role="edit" data-id="${todo.id}">Edit</button>
-        <button class="btn btn-danger" data-role="delete" data-id="${todo.id}">Delete</button>
-        <select class="form-select form-select-lg" data-role="select" data-id="${todo.id}">
-          <option value="newTodo" ${statusNewTodo}>Todo</option>
-          <option value="inProgress" ${statusInProgress}>In progress</option>
-          <option value="done" ${statusDone}>Done</option>
-        </select>
-      </div>
-      <div class="todo__title"><b>Title :</b> <br>${todo.title}</div>
-      <div class="todo__description"><b>Description :</b> <br>${todo.description}</div>
-      <div class="todo__info">
-          <div class="todo__user">User: ${todo.user}</div>
-          <div class="todo__time">${date}</div>
-        </div>
-      </div>
-  `
-}
-
-function buildCountersTemplateTodo (allNewTodos) {
-  return `
-  <span class="todo-list__name">todo :</span>
-  <span class="todo-list__quantity">${allNewTodos}</span>
-  `
-}
-
-function buildCountersTemplateInProgress (allInProgressTodos) {
-  return `
-  <span class="todo-list__name">in progress:</span>
-  <span class="todo-list__quantity">${allInProgressTodos}</span>
-  `
-}
-
-function buildCountersTemplateDone (allDoneTodos) {
-  return `
-  <span class="todo-list__name">done :</span>
-  <span class="todo-list__quantity">${allDoneTodos}</span>
-  `
-}
-
-// Get Data from Local Storage
-function getData () {
-  return JSON.parse(localStorage.getItem('todos')) || []
-}
-
-// Set Data in Local Storage
-function setData (source) {
-  localStorage.setItem('todos', JSON.stringify(source))
-}
-
-// Get users from JSON Aplication
-async function getUsers () {
-  const response = await fetch(url)
-  const infoAboutUsers = await response.json()
-  return infoAboutUsers
-}
-
-function printUsers (infoAboutUsers) {
-  infoAboutUsers.forEach((item) => {
-    selectUserElement.innerHTML += `<option value="${item.name}">${item.name}</option>`
-    createUserElement.innerHTML += `<option value="${item.name}">${item.name}</option>`
-    console.log(item.name)
-  })
-}
-
 ;(async () => {
   const infoAboutUsers = await getUsers()
   printUsers(infoAboutUsers)
 })()
+
+export { selectUserElement, createUserElement}
